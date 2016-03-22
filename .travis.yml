@@ -1,0 +1,8 @@
+./configure && make && make test
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+  
+  script: scons
