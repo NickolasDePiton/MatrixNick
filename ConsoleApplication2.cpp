@@ -21,16 +21,16 @@ public:
 	~Matrix();
 	Matrix(int _lines, int _columns);
 	void read_matrix(std::string s);
-	void print_matrix();
+	void print_matrix() const;
 	Matrix operator + (const Matrix &array);
 	Matrix operator * (const Matrix &array);
 	int* operator [](int i) const;
-	Matrix operator = (Matrix &a);
+	Matrix &operator = (Matrix &a); 
 	void reset();
 
 };
 Matrix::Matrix() : lines(0), columns(0), massiv(nullptr)
-{};
+{}
 
 Matrix::Matrix(const Matrix &a)
 {
@@ -53,6 +53,8 @@ Matrix::Matrix(int _lines, int _columns) : lines(_lines), columns(_columns)
 	for (int i = 0; i < lines; i++)
 	{
 		massiv[i] = new int[columns];
+		for (int j = 0; j < columns; j++)
+			massiv[i][j] = 0;
 	}
 
 }
@@ -66,7 +68,7 @@ void Matrix::read_matrix(const std::string s)
 	fin.close();
 
 }
-void Matrix::print_matrix()
+void Matrix::print_matrix() const
 {
 	for (int i = 0; i < lines; i++) {
 
@@ -75,7 +77,7 @@ void Matrix::print_matrix()
 		cout << endl;
 	}
 }
-Matrix Matrix::operator = (Matrix &a)
+Matrix & Matrix::operator = (Matrix &a)
 {
 	for (int i = 0; i < lines; i++)
 
@@ -154,28 +156,28 @@ int main(void)
 {
 	setlocale(LC_ALL, "Russian"); 
 	int a;
-	cout << "Àâòîìàòè÷åñêîå ñîçäàíèå ïåðâîé è âòîðîé ìàòðèöû" << endl;
+	cout << "ÐÐ²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ð¸ Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" << endl;
 
 		Matrix matrix(5, 5), matrixg(5,5), matrix1(5, 5);
-		cout << "Íàïèøèòå ïóòü ôàéëà äëÿ ïåðâîé ìàòðèöû: ";
+		cout << "ÐÐ°Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ Ð¿ÑƒÑ‚ÑŒ Ñ„Ð°Ð¹Ð»Ð° Ð´Ð»Ñ Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹: ";
 		std::string s;
 		std::getline(std::cin, s);
 		matrix.read_matrix(s);
-		cout << "Íàïèøèòå ïóòü ôàéëà äëÿ âòîðîé ìàòðèöû: ";
+		cout << "ÐÐ°Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ Ð¿ÑƒÑ‚ÑŒ Ñ„Ð°Ð¹Ð»Ð° Ð´Ð»Ñ Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹: ";
 		std::string x;
 		std::getline(std::cin, x);
 		matrixg.read_matrix(x);
-		cout << "1-ÿ Ìàòðèöà: " << endl;
+		cout << "1-Ñ ÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð°: " << endl;
 		matrix.print_matrix();
-		cout << "2-ÿ Ìàòðèöà: " << endl;
+		cout << "2-Ñ ÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð°: " << endl;
 		matrixg.print_matrix();
-		cout << "Ðåçóëüòàò óìíîæåíèÿ ìàòðèö: " << endl;
+		cout << "Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†: " << endl;
 		matrix1 = matrix*matrixg;
 		matrix1.print_matrix();
-		cout << "Ðåçóëüòàò ñëîæåíèÿ ìàòðèö: " << endl;
+		cout << "Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†: " << endl;
 		matrix1 = matrix + matrixg;
 		matrix1.print_matrix();
-		cout << "Ââåäèòå íîìåð ñòðîêè èç ïîñëåäíåé ìàòðèöû. (Ñòðîêà áóäåò âûâåäåíà): ";
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ ÑÑ‚Ñ€Ð¾ÐºÐ¸ Ð¸Ð· Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÐµÐ¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹. (Ð¡Ñ‚Ñ€Ð¾ÐºÐ° Ð±ÑƒÐ´ÐµÑ‚ Ð²Ñ‹Ð²ÐµÐ´ÐµÐ½Ð°): ";
 		cin >> a;
 		int *line_matrix1;
 		line_matrix1 = matrix1[a];
@@ -184,10 +186,10 @@ int main(void)
 
 		cout << endl;
 		int b = matrix.cout_lines();
-		cout << "Êîëè÷åñòâî ñòðîê â ïåðâîé ìàòðèöå: " << b;
+		cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº Ð² Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ðµ: " << b;
 		b = matrix.cout_columns();
 		cout << endl;
-		cout << "Êîëè÷åñòâî ñòîëáöîâ â ïåðâîé ìàòðèöå: " << b;
+		cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² Ð² Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ðµ: " << b;
 		cout << endl;
 	system("pause");
 
