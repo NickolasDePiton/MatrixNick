@@ -1,10 +1,4 @@
-#include "stdafx.h" 
 #include <iostream> 
-#include <stdio.h> 
-#include <string> 
-#include <conio.h> 
-#include <windows.h> 
-#include <stdlib.h> 
 #include <fstream> 
 using namespace std;
 class Matrix
@@ -79,6 +73,7 @@ void Matrix::print_matrix() const
 }
 Matrix & operator=(const Matrix & a)
 {
+	if (this != &a)
 	for (int i = 0; i < lines; i++)
 
 		delete[] massiv[i];
@@ -86,10 +81,10 @@ Matrix & operator=(const Matrix & a)
 	lines = a.lines;
 	columns = a.columns;
 	massiv = new int*[lines];
-	for (int i = 0; i < lines; i++)
+	for (int j = 0; j < lines; j++)
 	{
-		massiv[i] = new int[columns];
-		for (int j = 0; j < columns; j++)
+		massiv[j] = new int[columns];
+		for (int i = 0; i < columns; i++)
 			massiv[i][j] = a.massiv[i][j];
 	}
 	return *this;
@@ -146,13 +141,16 @@ void Matrix::reset()
 }
 Matrix::~Matrix()
 {
+	if (massiv != nullptr)
+	{
 	for (int i = 0; i < lines; i++)
 
 		delete[] massiv[i];
 	delete[] massiv;
+	}
 
 }
-int main(void)
+/*int main(void)
 {
 	setlocale(LC_ALL, "Russian"); 
 	int a;
@@ -194,3 +192,4 @@ int main(void)
 	system("pause");
 
 }
+*/
