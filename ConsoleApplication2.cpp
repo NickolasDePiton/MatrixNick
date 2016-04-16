@@ -25,7 +25,7 @@ public:
 	Matrix operator + (const Matrix &array);
 	Matrix operator * (const Matrix &array);
 	int* operator [](int i) const;
-	Matrix &operator = (Matrix &a); 
+	Matrix & operator=(const Matrix & a) 
 	void reset();
 
 };
@@ -77,7 +77,7 @@ void Matrix::print_matrix() const
 		cout << endl;
 	}
 }
-Matrix & Matrix::operator = (Matrix &a)
+Matrix & operator=(const Matrix & a)
 {
 	for (int i = 0; i < lines; i++)
 
